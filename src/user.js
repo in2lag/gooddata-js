@@ -66,11 +66,22 @@ define(['xhr'], function(xhr) {
         return d.promise();
     };
 
+    var getLogin = function() {
+        var d = $.Deferred();
+
+        xhr.get('/gdc/app/account/bootstrap').then(function(result) {
+            d.resolve(result.bootstrapResource.accountSetting.login);
+        }, d.reject);
+
+        return d.promise();
+    };
+
 
     return {
         isLoggedIn: isLoggedIn,
         login: login,
-        logout: logout
+        logout: logout,
+        getLogin: getLogin
     };
 
 });
